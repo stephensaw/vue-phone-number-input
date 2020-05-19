@@ -249,7 +249,8 @@
     methods: {
       getAsYouTypeFormat (payload) {
         const { countryCode, phoneNumber, formatAsYouType } = payload
-        if (formatAsYouType) {
+
+        if (typeof formatAsYouType === 'undefined' || !!formatAsYouType) {
           const asYouType = new AsYouType(countryCode)
           return phoneNumber ? asYouType.input(phoneNumber) : null
         } else {
