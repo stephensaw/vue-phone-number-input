@@ -115,7 +115,8 @@
       noCountrySelector: { type: Boolean, default: false },
       showCodeOnList: { type: Boolean, default: false },
       dark: { type: Boolean, default: false },
-      borderRadius: { type: Number, default: 4 }
+      borderRadius: { type: Number, default: 4 },
+      formatAsYouType: { type: Boolean, default: true }
     },
     data () {
       return {
@@ -248,8 +249,13 @@
     methods: {
       getAsYouTypeFormat (payload) {
         const { countryCode, phoneNumber } = payload
-        const asYouType = new AsYouType(countryCode)
-        return phoneNumber ? asYouType.input(phoneNumber) : null
+
+        if (this.formatAsYouType) {
+          const asYouType = new AsYouType(countryCode)
+          return phoneNumber ? asYouType.input(phoneNumber) : null
+        } else {
+          return phoneNumber
+        }
       },
       getParsePhoneNumberFromString ({ phoneNumber, countryCode }) {
         const parsing = phoneNumber && countryCode ? parsePhoneNumberFromString(phoneNumber, countryCode) : null
