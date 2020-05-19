@@ -152,7 +152,7 @@
           return this.value
         },
         set (newPhone) {
-          this.emitValues({ countryCode: this.countryCode, phoneNumber: newPhone })
+          this.emitValues({ countryCode: this.countryCode, phoneNumber: newPhone, formatAsYouType: this.formatAsYouType })
         }
       },
       shouldChooseCountry () {
@@ -248,9 +248,8 @@
     },
     methods: {
       getAsYouTypeFormat (payload) {
-        const { countryCode, phoneNumber } = payload
-
-        if (this.formatAsYouType) {
+        const { countryCode, phoneNumber, formatAsYouType } = payload
+        if (formatAsYouType) {
           const asYouType = new AsYouType(countryCode)
           return phoneNumber ? asYouType.input(phoneNumber) : null
         } else {
